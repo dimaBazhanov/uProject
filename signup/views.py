@@ -1,8 +1,7 @@
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import SignUpForm
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, ProfileForm
+from .forms import SignUpForm, ProfileForm, userPreferencesForm
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
@@ -22,6 +21,29 @@ def signup(request):
 
 
 
+
+
+@login_required
+@transaction.atomic
+def pref(request):
+    if request.method == 'POST':
+        pref_form = userPreferencesForm(request.POST, instance=request.user.userpreferences)
+        if  pref_form.is_valid():
+            pref_form.save()
+            messages.success(request, ('Ваши настройки были успешно обновлены!'))
+            return redirect('home')
+        else:
+            messages.error(request, ('Пожалуйста, исправьте ошибки.'))
+    else:
+        pref_form = userPreferencesForm(instance=request.user.userpreferences)
+    username = request.user.username
+    context = {'username':username, 'pref_form': pref_form}
+    return render(request, 'signup/pref.html', context)
+
+
+
+
+
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -31,12 +53,12 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            return redirect('user')
+            return redirect('preferences')
     return render(request, 'signup/login.html')
 
 def showUser(request):
 
-    return render(request, 'signup/aboutUser.html')
+    return render(request, 'signup/pref.html')
 
 
 

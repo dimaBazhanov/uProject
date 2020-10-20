@@ -1,0 +1,23 @@
+<h1>Configure your preferences</h1>
+
+<form method = "POST" action = "">
+  {% csrf_token %}
+    {{ pref_form.humidity.label }}
+    {{ pref_form.humidity }}
+      
+    {{ pref_form.temperature.label }}
+    {{ pref_form.temperature }}
+
+    {{ pref_form.displayStartPage.label }}
+    {{ pref_form.displayStartPage }}
+
+    {{ pref_form.radioWave.label }}
+    {{ pref_form.radioWave }}
+
+    {{ pref_form.tvChannel.label }}
+    {{ pref_form.tvChannel }}
+
+    {{ pref_form.frigeTemperature.label }}
+    {{ pref_form.frigeTemperature }}
+  <input type = "submit" name = "Signup"/>
+</form>
