@@ -1,0 +1,17 @@
+<h1>Hello {{ username }}! Here you can change your profile.</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ user_form.username.label }}
+  {{ user_form.username }}
+      
+  {{ user_form.email.label }}
+  {{ user_form.email }}
+
+  {{ user_form.password1.label }}
+  {{ user_form.password1 }}
+
+  {{ user_form.password2.label }}
+  {{ user_form.password2 }}
+  {{ profile_form.as_p }}
+  <button type="submit">Сохранить изменения</button>
+</form>
