@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adding new car</title>
+</head>
+<body>
+	<form method="POST" action="">
+		{% csrf_token %}
+		{{detailsForm.car}}
+			<br/>
+		{{detailsForm.radio.label}}
+		<br/>
+		{{detailsForm.radio}}
+		<br/>
+		{{detailsForm.display.label}}
+		<br/>
+		{{detailsForm.display}}
+		<br/>
+		{{detailsForm.airConditioner.label}}
+		<br/>
+		{{detailsForm.airConditioner}}
+		<br/>
+		{{detailsForm.glassFogging.label}}
+		<br/>
+		{{detailsForm.glassFogging}}
+		<br/>
+		{{detailsForm.lights.label}}
+		<br/>
+		{{detailsForm.lights}}
+		<br/>
+		{{detailsForm.inside.label}}
+		<br/>
+		{{detailsForm.inside}}
+		<br/>
+		{{detailsForm.price.label}}
+		<br/>
+		{{detailsForm.price}}
+		<br/>
+		{{detailsForm.colour.label}}
+		<br/>
+		{{detailsForm.colour}}
+		<br/>
+		<input type="submit" name="">
+	</form>
+</body>
+</html>

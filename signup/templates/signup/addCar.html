@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adding new car</title>
+</head>
+<body>
+	<form method="POST" action="">
+	{% csrf_token %}
+		{{carForm.user}}
+		<br/>
+		{{carForm.mark.label}}
+		<br/>
+		{{carForm.mark}}
+		<br/>
+		{{carForm.model.label}}
+		<br/>
+		{{carForm.model}}
+		<br/>
+		{{carForm.city.label}}
+		<br/>
+		{{carForm.city}}
+		<br/>
+		{{carForm.county.label}}
+		<br/>
+		{{carForm.county}}
+		<br/>
+		{{carForm.location.label}}
+		<br/>
+		{{carForm.location}}
+		<br/>
+	<input type="submit" name="">
+	</form>
+</body>
+</html>
