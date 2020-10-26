@@ -2,6 +2,7 @@ from django.contrib.auth import login as auth_login, authenticate, logout, logou
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, ProfileForm, userPreferencesForm, car, carDetails
+from .models import car as Car, carDetails as details
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
@@ -10,6 +11,77 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 # TODO Update form for car of particular organization
+def updDetails(request):
+    details_form = carDetails()
+    if request.user.is_authenticated:
+        current_user = User.objects.get(username = request.user.username)
+        user_cars = Car.objects.filter(user = current_user)
+
+        if request.method == 'POST':
+            details_form = carDetails(request.POST)
+            if details_form.is_valid():
+                current_car_id = request.POST.getlist('cars', None)
+                current_car = Car.objects.get(id = current_car_id[0])
+
+                current_details = details.objects.get(car = current_car)
+
+                if request.POST.get('radio') == 'on':
+                    current_details.radio = True
+                else:
+                    current_details.radio = False
+                if request.POST.get('display') == 'on':
+                    current_details.display = True
+                else:
+                    current_details.display = False
+                if request.POST.get('airConditioner') == 'on':
+                    current_details.airConditioner = True
+                else:
+                    current_details.airConditioner = False
+                if request.POST.get('glassFogging') == 'on':
+                    current_details.glassFogging = True
+                else:
+                    current_details.glassFogging = False
+                if request.POST.get('lights') == 'on':
+                    current_details.lights = True
+                else:
+                    current_details.lights = False
+                    
+                current_details.inside = request.POST.get('inside')
+                current_details.price = request.POST.get('price')
+                current_details.colour = request.POST.get('colour')
+
+                current_details.save()
+
+                return redirect('login')
+    context = {'detailsForm':details_form, 'cars':user_cars}
+    return render(request, 'signup/updDetails.html', context)
+
+def updCar(request):
+    car_form = car()
+    if request.user.is_authenticated:
+        current_user = User.objects.get(username = request.user.username)
+        user_cars = Car.objects.filter(user = current_user)
+
+        if request.method == 'POST':
+            car_form = car(request.POST)
+            if car_form.is_valid():
+                #edit = car_form.save(commit=False)
+                current_car_id = request.POST.getlist('cars', None)
+                print(current_car_id)
+
+                current_car = Car.objects.get(id = current_car_id[0])
+
+                current_car.mark = request.POST.get('mark')
+                current_car.model = request.POST.get('model')
+                current_car.city = request.POST.get('city')
+                current_car.county = request.POST.get('county')
+                current_car.location = request.POST.get('location')
+
+                current_car.save()
+
+                return redirect('login')
+    context = {'carForm':car_form, 'cars':user_cars}
+    return render(request, 'signup/updCar.html', context)
 
 def addCar(request):
     car_form = car()

@@ -40,6 +40,8 @@ class car(models.Model):
     county = models.CharField(max_length=254) # Опечатка вышла, потом исправлю
     location = models.CharField(max_length=254)
 
+    
+
 class carDetails(models.Model):
     car = models.OneToOneField(car, on_delete=models.CASCADE)
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adding new car</title>
+</head>
+<body>
+	<form method="POST" name="carform">
+	{% csrf_token %}
+		<select id="cars" name="cars">
+			{% for car in cars %}
+		    <option value={{car.id}}>{{car.model}}</option>
+			{% endfor %}
+	  	</select>
+	  	<br/>
+		{{detailsForm.radio.label}}
+		{{detailsForm.radio}}
+		<br/>
+		{{detailsForm.display.label}}
+		{{detailsForm.display}}
+		<br/>
+		{{detailsForm.airConditioner.label}}
+		{{detailsForm.airConditioner}}
+		<br/>
+		{{detailsForm.glassFogging.label}}
+		{{detailsForm.glassFogging}}
+		<br/>
+		{{detailsForm.lights.label}}
+		{{detailsForm.lights}}
+		<br/>
+		{{detailsForm.inside.label}}
+		{{detailsForm.inside}}
+		<br/>
+		{{detailsForm.price.label}}
+		{{detailsForm.price}}
+		<br/>
+		{{detailsForm.colour.label}}
+		{{detailsForm.colour}}
+		<br/>
+	<input type="submit" name="">
+	</form>
+</body>
+</html>

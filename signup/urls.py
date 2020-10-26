@@ -10,5 +10,8 @@ urlpatterns = [
 	path('pref/', views.pref, name='preferences'),
 
 	path('addCar/', views.addCar, name = 'addCar'),
-	path('addDetails', views.addDetails, name = 'addDetails')
+	path('addDetails', views.addDetails, name = 'addDetails'),
+	path('upd/', views.updCar, name = 'updateCar'),
+	path('updDetails/', views.updDetails, name = 'updateDetails')
+
 ]

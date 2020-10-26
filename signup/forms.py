@@ -29,4 +29,4 @@ class car(forms.ModelForm):
 class carDetails(forms.ModelForm):
     class Meta:
         model = carDetails
-        fields = ('radio', 'display', 'airConditioner', 'glassFogging', 'inside', 'price', 'lights', 'colour', 'car')
+        fields = ('radio', 'display', 'airConditioner', 'glassFogging', 'inside', 'price', 'lights', 'colour')

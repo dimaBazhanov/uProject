@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adding new car</title>
+</head>
+<body>
+	<form method="POST" name="carform">
+	{% csrf_token %}
+		<select id="cars" name="cars">
+			{% for car in cars %}
+		    <option value={{car.id}}>{{car.model}}</option>
+			{% endfor %}
+	  	</select>
+		<br/>
+		{{carForm.mark.label}}
+		<br/>
+		{{carForm.mark}}
+		<br/>
+		{{carForm.model.label}}
+		<br/>
+		{{carForm.model}}
+		<br/>
+		{{carForm.city.label}}
+		<br/>
+		{{carForm.city}}
+		<br/>
+		{{carForm.county.label}}
+		<br/>
+		{{carForm.county}}
+		<br/>
+		{{carForm.location.label}}
+		<br/>
+		{{carForm.location}}
+		<br/>
+	<input type="submit" name="">
+	</form>
+</body>
+</html>
