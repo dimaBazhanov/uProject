@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, userPreferences, car, carDetails
+from .models import Profile, userPreferences, car, carDetails, flat, flatDetails
 
 
 
@@ -30,3 +30,13 @@ class carDetails(forms.ModelForm):
     class Meta:
         model = carDetails
         fields = ('radio', 'display', 'airConditioner', 'glassFogging', 'inside', 'price', 'lights', 'colour')
+
+class flat(forms.ModelForm):
+    class Meta:
+        model = flat
+        fields = ('warehouse', 'city', 'country', 'district', 'location')
+
+class flatDetails(forms.ModelForm):
+    class Meta:
+        model = flatDetails
+        fields = ('smart_tv', 'computer', 'modern_radio', 'conditioner', 'humidifier', 'smart_frige', 'lights_on_time', 'price')

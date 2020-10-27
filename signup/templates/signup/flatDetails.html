@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adding new car</title>
+</head>
+<body>
+	<form method="POST" name="flatForm">
+	{% csrf_token %}
+		<select id="flats" name="flats">
+			{% for flat in flats %}
+		    <option value={{flat.id}}>{{flat.district}}</option>
+			{% endfor %}
+	  	</select>
+	  	<br/>
+		{{detailsForm.smart_tv.label}}
+		{{detailsForm.smart_tv}}
+		<br/>
+		{{detailsForm.computer.label}}
+		{{detailsForm.computer}}
+		<br/>
+		{{detailsForm.modern_radio.label}}
+		{{detailsForm.modern_radio}}
+		<br/>
+		{{detailsForm.conditioner.label}}
+		{{detailsForm.conditioner}}
+		<br/>
+		{{detailsForm.humidifier.label}}
+		{{detailsForm.humidifier}}
+		<br/>
+		{{detailsForm.smart_frige.label}}
+		{{detailsForm.smart_frige}}
+		<br/>
+		{{detailsForm.lights_on_time.label}}
+		{{detailsForm.lights_on_time}}
+		<br/>
+		{{detailsForm.price.label}}
+		{{detailsForm.price}}
+		<br/>
+	<input type="submit" name="">
+	</form>
+</body>
+</html>

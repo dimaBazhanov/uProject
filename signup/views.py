@@ -1,8 +1,8 @@
 from django.contrib.auth import login as auth_login, authenticate, logout, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, ProfileForm, userPreferencesForm, car, carDetails
-from .models import car as Car, carDetails as details
+from .forms import SignUpForm, ProfileForm, userPreferencesForm, car, carDetails, flat, flatDetails
+from .models import car as Car, carDetails as details, flat as Flat, flatDetails as FlatDetails
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
@@ -10,7 +10,121 @@ from django.contrib.auth.models import User
 
 from .models import Profile
 
-# TODO Update form for car of particular organization
+def updFlat(request):
+    flat_form = flat()
+    if request.user.is_authenticated:
+        current_user = User.objects.get(username = request.user.username)
+        user_flats = Flat.objects.filter(user = current_user)
+
+        if request.method == 'POST':
+            flat_form = flat(request.POST)
+            if flat_form.is_valid():
+
+                current_flat_id = request.POST.getlist('flats', None)
+
+                current_flat = Flat.objects.get(id = current_flat_id[0])
+
+                if request.POST.get('warehouse') == 'on':
+                    current_flat.warehouse = True
+                else:
+                    current_flat.warehouse = False
+
+                current_flat.city = request.POST.get('city')
+                current_flat.country = request.POST.get('country')
+                current_flat.district = request.POST.get('district')
+                current_flat.location = request.POST.get('location')
+
+                current_flat.save()
+
+                return redirect('login')
+    context = {'flatForm':flat_form, 'flats':user_flats}
+    return render(request, 'signup/updFlat.html', context)
+
+def addDetailsFlat(request):
+    flat_details_form = flatDetails()
+    if request.user.is_authenticated:
+        current_user = User.objects.get(username = request.user.username)
+        user_flat = Flat.objects.filter(user = current_user)
+
+        if request.method == 'POST':
+            flat_details_form = flatDetails(request.POST)
+            if flat_details_form.is_valid():
+                print('valid')
+
+                current_flat_id = request.POST.getlist('flats', None)
+                current_flat = Flat.objects.get(id = current_flat_id[0])
+
+                current_details = FlatDetails.objects.get(flat = current_flat)
+
+                if request.POST.get('smart_tv') == 'on':
+                    current_details.smart_tv = True
+                else:
+                    current_details.smart_tv = False
+                if request.POST.get('computer') == 'on':
+                    current_details.computer = True
+                else:
+                    current_details.computer = False
+                if request.POST.get('modern_radio') == 'on':
+                    current_details.modern_radio = True
+                else:
+                    current_details.modern_radio = False
+                if request.POST.get('conditioner') == 'on':
+                    current_details.conditioner = True
+                else:
+                    current_details.conditioner = False
+                if request.POST.get('humidifier') == 'on':
+                    current_details.humidifier = True
+                else:
+                    current_details.humidifier = False
+                if request.POST.get('smart_frige') == 'on':
+                    current_details.smart_frige = True
+                else:
+                    current_details.smart_frige = False
+                current_details.lights_on_time = request.POST.get('lights_on_time')
+                current_details.price = request.POST.get('price')
+
+                current_details.save()
+                print('saved')
+                return redirect('login')
+    context = {'detailsForm':flat_details_form, 'flats':user_flat}
+    return render(request, 'signup/flatDetails.html', context)
+
+def addFlat(request):
+    flat_form = flat()
+    details = flatDetails()
+
+    if request.user.is_authenticated:
+
+        if request.method == 'POST':
+            flat_form = flat(request.POST)
+
+            if flat_form.is_valid():
+
+                newflat = flat_form.save(commit=False)
+
+                if request.POST.get('warehouse') == 'on':
+                    newflat.warehouse = True
+                else:
+                    newflat.warehouse = False
+
+                newflat.city = request.POST.get('city')
+                newflat.country = request.POST.get('country')
+                newflat.district = request.POST.get('district')
+                newflat.location = request.POST.get('location')
+                newflat.user = request.user
+
+                newflat.save()
+                details = details.save(commit=False) # Я еблан, это подтвержденная информация.
+                details.flat = newflat
+                details.save()
+
+                return redirect('login')
+        context = {'flatForm':flat_form, 'flatDetails':details}
+        return render(request, 'signup/addFlat.html', context)
+    else:
+        return redirect('login')
+
+
 def updDetails(request):
     details_form = carDetails()
     if request.user.is_authenticated:
@@ -45,7 +159,7 @@ def updDetails(request):
                     current_details.lights = True
                 else:
                     current_details.lights = False
-                    
+
                 current_details.inside = request.POST.get('inside')
                 current_details.price = request.POST.get('price')
                 current_details.colour = request.POST.get('colour')
@@ -115,21 +229,6 @@ def addCar(request):
                 return redirect('login')
         context = {'carForm':car_form, 'detailsForm':carDetails_form}
         return render(request, 'signup/addCar.html', context)
-    else:
-        return redirect('login')
-
-def addDetails(request):
-    if request.user.is_authenticated:
-        carDetails_form = carDetails()
-
-        if request.method == 'POST':
-            carDetails_form = carDetails(request.POST)
-            if carDetails_form.is_valid():
-                carDetails_form.save()
-                return redirect('login')
-
-        context = {'detailsForm':carDetails_form}
-        return render(request, 'signup/addDetails.html', context)
     else:
         return redirect('login')
 

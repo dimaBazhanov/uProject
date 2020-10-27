@@ -10,8 +10,11 @@ urlpatterns = [
 	path('pref/', views.pref, name='preferences'),
 
 	path('addCar/', views.addCar, name = 'addCar'),
-	path('addDetails', views.addDetails, name = 'addDetails'),
 	path('upd/', views.updCar, name = 'updateCar'),
-	path('updDetails/', views.updDetails, name = 'updateDetails')
+	path('updDetails/', views.updDetails, name = 'updateDetails'),
+
+	path('addFlat/', views.addFlat, name = 'addFlat'),
+	path('addDetailsFlat', views.addDetailsFlat, name = 'addDetailsFlat'),
+	path('updFlat', views.updFlat, name = 'updFlat'),
 
 ]

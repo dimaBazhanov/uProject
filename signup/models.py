@@ -29,6 +29,30 @@ class userPreferences(models.Model):
     tvChannel = models.IntegerField(null=True, blank=True)
     frigeTemperature = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
+class flat(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    id = models.AutoField(primary_key=True, help_text="Unique ID for this particular flat")
+    warehouse = models.BooleanField(default=False)
+    city = models.CharField(max_length=254)
+    country = models.CharField(max_length=254)
+    district = models.CharField(max_length=254)
+    location = models.CharField(max_length=254)
+
+class flatDetails(models.Model):
+    flat = models.OneToOneField(flat, on_delete=models.CASCADE)
+
+    smart_tv = models.BooleanField(default=False)
+    computer = models.BooleanField(default=False)
+    modern_radio = models.BooleanField(default=False)
+    conditioner = models.BooleanField(default=False)
+    humidifier = models.BooleanField(default=False)
+    smart_frige = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    lights_on_time = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[
+            MaxValueValidator(23),
+            MinValueValidator(0)
+        ])
 
 class car(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -39,8 +63,6 @@ class car(models.Model):
     city = models.CharField(max_length=254)
     county = models.CharField(max_length=254) # Опечатка вышла, потом исправлю
     location = models.CharField(max_length=254)
-
-    
 
 class carDetails(models.Model):
     car = models.OneToOneField(car, on_delete=models.CASCADE)
