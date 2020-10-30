@@ -10,6 +10,12 @@ from django.contrib.auth.models import User
 
 from .models import Profile
 
+def main(request):
+    return render(request, 'signup/main.html')
+
+def mainUa(request):
+    return render(request, 'ua/main.html')
+
 def updFlat(request):
     flat_form = flat()
     if request.user.is_authenticated:

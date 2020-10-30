@@ -17,4 +17,7 @@ urlpatterns = [
 	path('addDetailsFlat', views.addDetailsFlat, name = 'addDetailsFlat'),
 	path('updFlat', views.updFlat, name = 'updFlat'),
 
+	path('main/', views.main, name = 'mainpage'),
+	path('ua/main/', views.mainUa, name = 'mainpageUa'),
+
 ]
