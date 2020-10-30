@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth import login as auth_login, authenticate, logout, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
@@ -11,7 +13,9 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 def main(request):
-    return render(request, 'signup/main.html')
+    now = datetime.datetime.now()
+    context = {'carCount':384, 'flatCount':93, 'currentYear':now.year}
+    return render(request, 'signup/main.html', context)
 
 def mainUa(request):
     return render(request, 'ua/main.html')
