@@ -1,7 +1,29 @@
-Login
-<form method = "POST" action = "">
-  {% csrf_token %}
-  <input type="text" name="username">
-  <input type = "Password" name = "password">
-  <input type = "submit" name = "login">
-</form>
+{% extends "template/header_footer.html" %}
+  {% block content %}
+
+<div class="container-fluid" style="margin-top: 100px; margin-bottom: 160px; ">
+<div class="row col-12 d-flex justify-content-center align-items-center ">
+  <h2>Registration</h2>
+</div>
+<div class="row col-12 d-flex align-items-center">
+<div class="container col-6 col-sm-6 col-md-5 col-lg-4 col-xl-3 d-flex justify-content-center align-items-center border rounded" style="height: 200px;">
+  <form method = "POST" action = "">
+    {% csrf_token %}
+    <br/>
+    <label style="padding: 0; margin: 0;">Username</label>
+    <br/>
+    <input type="text" name="username">
+    <br/>
+    <label style="padding: 0; margin: 0;">Password</label>
+    <br/>
+    <input type = "Password" name = "password">
+    <br/>
+    <br/>
+    <input class="bg-success text-light" style="width: 100%;" type = "submit" name = "login">
+    <br/>
+    <br/>
+  </form>
+</div>
+</div>
+</div>
+{% endblock %}

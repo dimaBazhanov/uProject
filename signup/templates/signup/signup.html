@@ -1,18 +1,35 @@
-<h1>Registration</h1>
+{% extends "template/header_footer.html" %}
+  {% block content %}
 
-<form method = "POST" action = "">
-  {% csrf_token %}
-    {{ form.username.label }}
-    {{ form.username }}
-      
-    {{ form.email.label }}
-    {{ form.email }}
-
-    {{ form.password1.label }}
-    {{ form.password1 }}
-
-    {{ form.password2.label }}
-    {{ form.password2 }}
-    <input type="checkbox" name="company">
-  <input type = "submit" name = "Signup"/>
-</form>
+<div class="container-fluid" style="margin-top: 60px; margin-bottom: 100px; ">
+<div class="row col-12 d-flex justify-content-center align-items-center ">
+  <h2>Registration</h2>
+</div>
+<div class="row col-12 d-flex align-items-center">
+<div class="container col-6 col-sm-6 col-md-5 col-lg-4 col-xl-3 d-flex justify-content-center align-items-center border rounded" style="height: 300px;">
+  <form method = "POST" action = "">
+    {% csrf_token %}
+      {{ form.username.label }}
+        <br/>
+      {{ form.username }}
+        <br/>
+      {{ form.email.label }}
+        <br/>
+      {{ form.email }}
+        <br/>
+      {{ form.password1.label }}
+        <br/>
+      {{ form.password1 }}
+        <br/>
+      {{ form.password2.label }}
+        <br/>
+      {{ form.password2 }}
+        <br/>
+        <br/>
+    <input class="bg-success text-light" style="width: 100%;" type = "submit" name = "Signup"/>
+  </form>
+</div>
+  <p class="col-12 d-flex justify-content-center">Already registered?&nbsp;<a href="{% url 'login' %}">Than login!</a></p>
+</div>
+</div>
+{% endblock %}

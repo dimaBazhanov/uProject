@@ -14,10 +14,19 @@ from .models import Profile
 
 def main(request):
     now = datetime.datetime.now()
-    context = {'carCount':384, 'flatCount':93, 'currentYear':now.year}
+
+    print(request.get_full_path())
+
+    if request.user.is_authenticated:
+        user = request.user.username
+    else:
+        user = ''
+
+    context = {'carCount':384, 'flatCount':93, 'currentYear':now.year, 'username':user}
     return render(request, 'signup/main.html', context)
 
 def mainUa(request):
+
     return render(request, 'ua/main.html')
 
 def updFlat(request):
@@ -257,6 +266,9 @@ def signup(request):
 @login_required
 @transaction.atomic
 def pref(request):
+
+    url = request.get_full_path()
+
     if request.method == 'POST':
         pref_form = userPreferencesForm(request.POST, instance=request.user.userpreferences)
         if  pref_form.is_valid():
@@ -268,7 +280,7 @@ def pref(request):
     else:
         pref_form = userPreferencesForm(instance=request.user.userpreferences)
     username = request.user.username
-    context = {'username':username, 'pref_form': pref_form}
+    context = {'username':username, 'pref_form': pref_form, 'adress':url}
     return render(request, 'signup/pref.html', context)
 
 
@@ -277,7 +289,7 @@ def logoutUser(request):
         logout(request)
         return redirect('login')
     else:
-        return redirect('home')
+        return redirect('mainpage')
 
 
 
@@ -290,7 +302,7 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            return redirect('preferences')
+            return redirect('mainpage')
     return render(request, 'signup/login.html')
 
 def showUser(request):

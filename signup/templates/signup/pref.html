@@ -1,23 +1,79 @@
-<h1>Configure your preferences</h1>
+{% extends "template/header_footer.html" %}
+  {% block content %}
+<style>
+#id {
+  color: black;
+  margin-top: 10px;
+}
+#id:hover {
+  color: gray; 
+}
+</style>
 
-<form method = "POST" action = "">
-  {% csrf_token %}
-    {{ pref_form.humidity.label }}
-    {{ pref_form.humidity }}
+<div class="container col-12">
+  <div class="row">
+    <div class="container col-12 d-flex justify-content-center border-bottom font-italic text-secondary">
+      <h1>Configure your preferences</h1>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="container col-8 d-flex justify-content-center border-md-none border-left">
       
-    {{ pref_form.temperature.label }}
-    {{ pref_form.temperature }}
+      <div class="container col-11" style="margin-top: 40px; margin-bottom: 35px">
+        <h3 class="font-italic text-center border" style="margin-left:2px;margin-right:4px;">These settings will be automatically applied during system activation throw the phone and smart device interaction.</h3>
 
-    {{ pref_form.displayStartPage.label }}
-    {{ pref_form.displayStartPage }}
+      <div class="container border">
+        <p><span class="font-weight-bold font-italic" style="font-size: 20px;">Humidity - </span>The setting displays the humidity that the humidifier will maintain as standard.</p>
+        <p><span class="font-weight-bold font-italic" style="font-size: 20px;">Temperature - </span>The setting displays the air temperature in room that the conditioner will maintain as standard.</p>
+        <p><span class="font-weight-bold font-italic" style="font-size: 20px;">Start Page - </span>The setting displays the internet page that computer will display in browser as standart.</p>
+        <p><span class="font-weight-bold font-italic" style="font-size: 20px;">Radio Wave - </span>The setting displays the radio wave that the radio will tune automatically when on.</p>
+        <p><span class="font-weight-bold font-italic" style="font-size: 20px;">Channel - </span>The setting displays the channel that tv will turn automatically.</p>
+        <p><span class="font-weight-bold font-italic" style="font-size: 20px;">Fridge Temperature - </span>The setting displays temperature that frige will keep up.</p>
+      </div>
+    </div>
 
-    {{ pref_form.radioWave.label }}
-    {{ pref_form.radioWave }}
+    </div>
+      <div class="container col-3 d-flex justify-content-center border rounded" style="margin-top: 60px; margin-bottom: 100px; max-height: 450px; max-width: 350px;">
 
-    {{ pref_form.tvChannel.label }}
-    {{ pref_form.tvChannel }}
 
-    {{ pref_form.frigeTemperature.label }}
-    {{ pref_form.frigeTemperature }}
-  <input type = "submit" name = "Signup"/>
-</form>
+        <form method = "POST" action = "">
+          <h5 class="text-center">Current settings</h5>
+          {% csrf_token %}
+            {{ pref_form.humidity.label }}
+              <br/>
+            {{ pref_form.humidity }}
+              <br/>
+            {{ pref_form.temperature.label }}
+              <br/>
+            {{ pref_form.temperature }}
+              <br/>
+            {{ pref_form.displayStartPage.label }}
+              <br/>
+            {{ pref_form.displayStartPage }}
+              <br/>
+            {{ pref_form.radioWave.label }}
+              <br/>
+            {{ pref_form.radioWave }}
+
+              <br/>
+            {{ pref_form.tvChannel.label }}
+              <br/>
+            {{ pref_form.tvChannel }}
+              <br/>
+            {{ pref_form.frigeTemperature.label }}
+              <br/>
+            {{ pref_form.frigeTemperature }}
+              <br/>
+          <input class="bg-success text-light" type = "submit" value="Save preferences" name = "Signup"/ style="width: 100%; margin-bottom: 20px; margin-top: 25px">
+        </form>
+      </div>
+    <div class="container col-1 d-flex justify-content-end border-right">
+      <a id=id href="{% url 'preferences' %}"><svg width="40px" height="40px" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
+            <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
+            </svg></a>
+    </div>
+  </div>
+</div>
+{% endblock %}
