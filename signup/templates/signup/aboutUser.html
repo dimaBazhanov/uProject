@@ -1,17 +1,26 @@
-<h1>Hello {{ username }}! Here you can change your profile.</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ user_form.username.label }}
-  {{ user_form.username }}
-      
-  {{ user_form.email.label }}
-  {{ user_form.email }}
-
-  {{ user_form.password1.label }}
-  {{ user_form.password1 }}
-
-  {{ user_form.password2.label }}
-  {{ user_form.password2 }}
-  {{ profile_form.as_p }}
-  <button type="submit">Сохранить изменения</button>
-</form>
+{% extends "template/header_footer.html" %}
+  {% block content %}
+<h1 class="d-flex justify-content-center" style="margin-top: 60px;">Profile</h1>
+ <div class="container col-sm-5 col-6 col-lg-3 d-flex justify-content-center border rounded" style="margin-bottom: 100px; max-height: 450px;"> 
+  <form method="post">
+    {% csrf_token %}
+    {{ user_form.username.label }}
+        <br/>
+    {{ user_form.username }}
+        <br/>
+    {{ user_form.email.label }}
+        <br/>
+    {{ user_form.email }}
+        <br/>
+    {{ user_form.password1.label }}
+        <br/>
+    {{ user_form.password1 }}
+        <br/>
+    {{ user_form.password2.label }}
+        <br/>
+    {{ user_form.password2 }}
+      <br/>
+    <input class="bg-success text-light" type = "submit" value="Save preferences" name = "Signup"/ style="width: 100%; margin-bottom: 20px; margin-top: 25px">
+  </form>
+</div>
+{% endblock %}
